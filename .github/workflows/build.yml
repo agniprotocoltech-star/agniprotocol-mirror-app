@@ -16,10 +16,15 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
-      - run: flutter pub get
-      - run: flutter build apk --release --no-tree-shake-icons
+      - name: Create Flutter project
+        run: |
+          flutter create --org com.agniprotocol --project-name agniprotocol_mirror tmp_app
+          cp -r lib/* tmp_app/lib/
+          cp pubspec.yaml tmp_app/pubspec.yaml
+          cd tmp_app && flutter pub get
+          flutter build apk --release --no-tree-shake-icons
       - uses: actions/upload-artifact@v4
         with:
           name: AgniProtocol-Mirror-APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: tmp_app/build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
