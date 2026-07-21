@@ -16,12 +16,14 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
-      - name: Create Flutter project
+      - name: Build APK
         run: |
           flutter create --org com.agniprotocol --project-name agniprotocol_mirror tmp_app
-          cp -r lib/* tmp_app/lib/
+          cp lib/main.dart tmp_app/lib/main.dart
           cp pubspec.yaml tmp_app/pubspec.yaml
-          cd tmp_app && flutter pub get
+          cd tmp_app
+          sed -i 's/minSdkVersion 19/minSdkVersion 23/' android/app/build.gradle
+          flutter pub get
           flutter build apk --release --no-tree-shake-icons
       - uses: actions/upload-artifact@v4
         with:
