@@ -22,6 +22,8 @@ jobs:
           cp lib/main.dart tmp_app/lib/main.dart
           cp pubspec.yaml tmp_app/pubspec.yaml
           cp android/app/src/main/AndroidManifest.xml tmp_app/android/app/src/main/AndroidManifest.xml
+          mkdir -p tmp_app/android/app/src/main/kotlin/com/agniprotocol/mirror/
+          cp android/app/src/main/kotlin/com/agniprotocol/mirror/MainActivity.kt tmp_app/android/app/src/main/kotlin/com/agniprotocol/mirror/MainActivity.kt
           cd tmp_app
           sed -i 's/minSdkVersion 19/minSdkVersion 23/' android/app/build.gradle
           flutter pub get
